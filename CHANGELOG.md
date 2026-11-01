@@ -6,6 +6,25 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- `Scroll::scrollTo(x, y)` jumps straight to a scroll position, clamped to the
+  content bounds. Navigation that does not go through the arrow keys needs it to
+  snap back to the top when the focus returns to the first item: `reveal` only
+  guarantees the focused node is visible, not the heading above it.
+
+### Fixed
+
+- `ListItem` was built on a vertical `Flex`, so every row with a trailing control
+  stacked the title and the control on two lines and measured 22 px instead of
+  11 px. `CheckBox`, `Radio` and `Select` now read on a single line, as intended,
+  and every list fits roughly twice as many rows on screen.
+
+### Changed
+
+- `examples/esp32s3-sh1106-rotary` grew from four pages to eight, mirroring the
+  `gallery` example of the original Go project.
+
 ## [0.1.0] - 2026-11-01
 
 First public release. A C++ rewrite of the Go / TinyGo

@@ -64,7 +64,7 @@ lilty/
 │   └── input/                   input backend: push Keys into lilty::ui::emit
 │       └── rotary.h  .cpp       rotary encoder plus two buttons (Arduino)
 ├── examples/                    each subfolder is a standalone PlatformIO project
-│   ├── esp32s3-sh1106-rotary/   the reference implementation, four demo pages
+│   ├── esp32s3-sh1106-rotary/   the reference implementation, eight demo pages
 │   └── minimal/                 one screen, one list; start a new port from here
 ├── test/test_core/              desktop unit tests with an in-memory Screen
 └── .github/workflows/build.yml  builds both examples and runs the tests
@@ -443,11 +443,11 @@ SwiftUI's `animation(.spring())`: a larger `response` is slower, a smaller
 
 ## Footprint
 
-ESP32-S3, Arduino 2.0.14, PlatformIO release build, including all four demo pages:
+ESP32-S3, Arduino 2.0.14, PlatformIO release build, including all eight demo pages:
 
 ```
-RAM:   7.1% (used 23320 bytes from 327680 bytes)
-Flash: 9.6% (used 319241 bytes from 3342336 bytes)
+RAM:   7.1% (used 23344 bytes from 327680 bytes)
+Flash: 9.8% (used 327405 bytes from 3342336 bytes)
 ```
 
 Of that, the framework itself keeps a 1 KB framebuffer (128×64 / 8) plus a 1 KB

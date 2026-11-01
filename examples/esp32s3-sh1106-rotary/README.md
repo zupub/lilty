@@ -35,15 +35,44 @@ against the library source in this repository.
 
 ## What you should see
 
-Four rows on the home screen: **Controls**, **Long list**, **Dialog**, **Toast**.
+Eight rows on the home screen, mirroring the `gallery` example of the original Go
+project. The two demos that lean on `Input` and `Chips` are replaced, because
+lilty has neither widget.
 
-- **Rotate** — move the focus ring. On the last row of a list it wraps.
-- **Push the shaft** — activate. On the *Dialog* row it opens a modal with two
-  side-by-side buttons; the encoder now steps between **OK** and **Cancel**
-  horizontally, because the focus navigation translates Up/Down into Left/Right
-  inside a horizontal container.
-- **BACK** — close the dialog, or slide the current page back out. On the root
-  page it just nudges.
+| Page | What it exercises |
+| --- | --- |
+| **Buttons** | a button that retitles itself, `setHold(0.8f)` for hold-to-confirm, and a handler returning `false` (shake plus a cross) |
+| **Toggles** | `CheckBox`, an `onCheck` that refuses the change and rolls the box back, and a `RadioGroup` |
+| **Select** | a drawer with four options, and one with nine so it has to scroll |
+| **Keypad** | a `Grid` of twelve keys with `frTrack(1)` columns |
+| **Shelf** | two rows of cards inside horizontal `Scroll`s, nested in a vertical list |
+| **Flex** | `MainAlign` switching with `animateLayout()`, and `grow` toggling |
+| **Long list** | 40 rows: scrolling, focus reveal, marquee |
+| **Popups** | drawers from all four edges, a `Dialog`, and `toast()` |
+
+- **Rotate** — move the focus ring. Inside a plain list it wraps at the last row.
+- **Push the shaft** — activate. On *Popups* it opens a modal with two side-by-side
+  buttons; the encoder steps between **OK** and **Cancel** horizontally, because
+  the focus navigation translates Up/Down into Left/Right inside a horizontal
+  container.
+- **BACK** — close the drawer or dialog, or slide the current page back out. On
+  the root page it just nudges.
+
+### Two pages carry their own focus chain
+
+An encoder only produces `Up` / `Down`, but the Keypad grid and the Shelf cards
+need `Left` / `Right` to be traversed completely. Both pages wrap their body in
+`LinearNav`, a small `List` subclass that overrides `previewKey` and walks the
+focusable nodes in declaration order instead:
+
+```
+1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → C → 0 → <
+```
+
+The chain stops at both ends instead of wrapping, and `Scroll::scrollTo` brings
+the page back to the top (or bottom) when the focus lands on the first (or last)
+node — `reveal` on its own only guarantees the focused node is visible, not the
+heading above it.
 
 Every activation also prints one line to the serial console, e.g. `[点击] Dialog OK`.
 That is the fastest way to tell "the key never arrived" from "the callback ran

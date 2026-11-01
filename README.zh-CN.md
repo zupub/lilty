@@ -56,7 +56,7 @@ lilty/
 │   └── input/                   输入后端：往 lilty::ui::emit 里喂 Key
 │       └── rotary.h  .cpp       旋转编码器 + 两个按键（Arduino）
 ├── examples/                    每个子目录都是独立的 PlatformIO 工程
-│   ├── esp32s3-sh1106-rotary/   参考实现：ESP32-S3 + SH1106 + 旋钮，四个页面
+│   ├── esp32s3-sh1106-rotary/   参考实现：ESP32-S3 + SH1106 + 旋钮，八个页面
 │   └── minimal/                 最小骨架：一屏一列表，移植新硬件从它抄
 ├── test/test_core/              桌面端单测（自带的 mock Screen）
 └── .github/workflows/build.yml  每次 push 编译两个 example + 跑单测
@@ -393,11 +393,11 @@ lilty::ui::theme               // 颜色、字体、圆角、间距，见 ui.h �
 
 ## 占用
 
-ESP32-S3、Arduino 2.0.14、PlatformIO 默认 release（含 example 的四个页面）：
+ESP32-S3、Arduino 2.0.14、PlatformIO 默认 release（含 example 的八个页面）：
 
 ```
-RAM:   7.1% (used 23320 bytes from 327680 bytes)
-Flash: 9.6% (used 319241 bytes from 3342336 bytes)
+RAM:   7.1% (used 23344 bytes from 327680 bytes)
+Flash: 9.8% (used 327405 bytes from 3342336 bytes)
 ```
 
 框架自己常驻的是 1KB 帧缓冲（128×64 / 8）+ 1KB shadow，剩下是节点对象，按行数增长；
