@@ -6,6 +6,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-01
+
 ### Added
 
 - `Scroll::scrollTo(x, y)` jumps straight to a scroll position, clamped to the
@@ -80,5 +82,6 @@ First public release. A C++ rewrite of the Go / TinyGo
 - `lilty::loop` no longer depends on `<Arduino.h>`; it uses `std::chrono` outside
   Arduino, which is what makes the desktop tests possible.
 
-[Unreleased]: https://github.com/zupub/lilty/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/zupub/lilty/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/zupub/lilty/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/zupub/lilty/releases/tag/v0.1.0

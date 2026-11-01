@@ -1,6 +1,6 @@
 {
   "name": "lilty",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "GUI framework for 128x64 monochrome OLEDs: spring-driven animation, a layer stack, focus navigation and a small widget set. C++ rewrite of the lilt project (https://github.com/chhongzh/lilt), with display and input backends kept in separate folders so the core can be ported to other hardware.",
   "keywords": "oled, gui, sh1106, ssd1306, menu, rotary, encoder, spring, animation, esp32",
   "authors": [
