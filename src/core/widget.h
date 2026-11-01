@@ -173,6 +173,9 @@ class Scroll : public Node
     {
         hideBar_ = !show;
     }
+    // scrollTo 直接跳到某个滚动位置（逻辑像素，越界会夹住）。给不经过方向
+    // 键就要改滚动位置的自定义导航用。
+    void scrollTo(float x, float y);
     // content 是 add 挂子节点的地方。
     Node *content() const
     {

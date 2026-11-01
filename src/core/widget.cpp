@@ -425,6 +425,17 @@ Rect Scroll::contentRest(Node *d) const
     return r;
 }
 
+// scrollTo 把滚动位置直接拨到 (x, y)，越界会夹住。自定义导航需要“到头就
+// 回顶 / 到底”时用它，因为 reveal 只保证焦点节点可见，不管它上方的内容。
+void Scroll::scrollTo(float x, float y)
+{
+    pos_[0] = clampf(x, 0, limit_[0]);
+    pos_[1] = clampf(y, 0, limit_[1]);
+    pull_[0] = 0;
+    pull_[1] = 0;
+    apply();
+}
+
 void Scroll::reveal(Node *d)
 {
     if (!ui::isAncestor(content_, d))
@@ -610,7 +621,7 @@ List::List(std::initializer_list<Option> opts)
 
 // -------------------------------------------------------------- ListItem
 
-ListItem::ListItem(const char *title, std::initializer_list<Option> opts) : Flex(ui::Vertical)
+ListItem::ListItem(const char *title, std::initializer_list<Option> opts) : Flex(ui::Horizontal)
 {
     init(title);
     ui::apply(this, opts);
