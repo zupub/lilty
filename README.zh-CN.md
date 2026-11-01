@@ -1,5 +1,9 @@
 # lilty (C++)
 
+<p align="center">
+  <img src="assets/screenshot.png" alt="lilty 跑的八个页面" width="480">
+</p>
+
 <div align="center">
 
 [![PlatformIO Registry](https://badges.registry.platformio.org/packages/zupub/library/lilty.svg)](https://registry.platformio.org/libraries/zupub/lilty)
@@ -12,10 +16,6 @@
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 </div>
-
-<p align="center">
-  <img src="assets/screenshot.png" alt="lilty 跑的八个页面" width="480">
-</p>
 
 <p align="center">
   <strong>中文 | <a href="README.md">English</a></strong>
