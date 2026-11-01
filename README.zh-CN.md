@@ -52,14 +52,17 @@ lilty/
 │   │   └── widget.h  widget.cpp Label / List / Button / CheckBox / Radio /
 │   │                            Select / Drawer / Dialog / Toast
 │   ├── display/                 显示后端：实现 gfx::Screen
-│   │   └── sh1106_i2c.h  .cpp   SH1106 128×64 I2C（Arduino）
+│   │   ├── sh1106_i2c.h  .cpp   SH1106 128×64 I2C（Arduino）
+│   │   └── gfx_sdl.h  .cpp      128×64 画进 SDL2 窗口（桌面端）
 │   └── input/                   输入后端：往 lilty::ui::emit 里喂 Key
-│       └── rotary.h  .cpp       旋转编码器 + 两个按键（Arduino）
+│       ├── rotary.h  .cpp       旋转编码器 + 两个按键（Arduino）
+│       └── sdl_input.h  .cpp    键盘，驱动 SDL2 窗口（桌面端）
 ├── examples/                    每个子目录都是独立的 PlatformIO 工程
 │   ├── esp32s3-sh1106-rotary/   参考实现：ESP32-S3 + SH1106 + 旋钮，八个页面
-│   └── minimal/                 最小骨架：一屏一列表，移植新硬件从它抄
+│   ├── minimal/                 最小骨架：一屏一列表，移植新硬件从它抄
+│   └── pc-sdl/                  不接板子：同样的界面跑在 SDL2 窗口里
 ├── test/test_core/              桌面端单测（自带的 mock Screen）
-└── .github/workflows/build.yml  每次 push 编译两个 example + 跑单测
+└── .github/workflows/build.yml  每次 push 编译三个 example + 跑单测
 ```
 
 `lilty.cpp` 里只有一处和平台相关：取微秒时间戳。Arduino 下用 `micros()`，其它平台用
@@ -249,6 +252,25 @@ void loop() { lilty::loop([](float dt) { nav.poll(dt); }); }
 ```
 
 `lilty::loop` 的 hook 比 `ui::frame` 先跑，所以这一帧采到的输入当帧就生效。
+
+## 桌面预览
+
+`examples/pc-sdl` 把同一套控件跑在 SDL2 窗口里，改布局不用每次烧板子。它和 ESP32
+参考移植是同样的八个页面——Buttons、Toggles、Select、Keypad、Shelf、Flex、Long list、
+Popups——两边可以对着看：
+
+```sh
+pio run -d examples/pc-sdl
+.pio/build/pc_sdl/program      # Windows 上是 program.exe
+```
+
+需要 SDL2 的开发文件——MSYS2 用 `pacman -S mingw-w64-x86_64-SDL2`，Debian/Ubuntu 用
+`apt install libsdl2-dev`，macOS 用 `brew install sdl2`。SDL 后端藏在 `LILTY_SDL` 后面，
+所以库里别的东西都不依赖 SDL；没定义这个宏时，ESP32 的两个 example 和单测照样能在从没
+装过 SDL 的机器上编译。
+
+方向键或 WASD 移动焦点，回车/空格确认，Esc 返回，Ctrl+Q 退出。Keypad 和 Shelf 给自己的
+内容串了一条链，所以上下键一格一格走，左右键仍然在排内移动。
 
 ## 测试
 

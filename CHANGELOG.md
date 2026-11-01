@@ -6,6 +6,21 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- `display/gfx_sdl` and `input/sdl_input`: a desktop backend pair that draws the
+  128x64 frame into an SDL2 window and reads the keyboard, so a layout can be
+  tried without flashing a board. Both compile only when `LILTY_SDL` is defined.
+- `examples/pc-sdl`: the same eight pages as the ESP32 reference port running
+  on a PC — Buttons, Toggles, Select, Keypad, Shelf, Flex, Long list and
+  Popups — with arrow keys or WASD driving the focus and Ctrl+Q to quit.
+
+### Changed
+
+- `sh1106_i2c.cpp` and `rotary.cpp` are wrapped in `#ifdef ARDUINO` so the whole
+  source tree also builds on a desktop, where those two backends have no reason
+  to be compiled.
+
 ## [0.1.1] - 2026-11-01
 
 ### Added

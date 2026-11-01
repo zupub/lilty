@@ -60,14 +60,17 @@ lilty/
 │   │   └── widget.h  widget.cpp Label / List / Button / CheckBox / Radio /
 │   │                            Select / Drawer / Dialog / Toast
 │   ├── display/                 display backend: implement gfx::Screen
-│   │   └── sh1106_i2c.h  .cpp   SH1106 128×64 over I2C (Arduino)
+│   │   ├── sh1106_i2c.h  .cpp   SH1106 128×64 over I2C (Arduino)
+│   │   └── gfx_sdl.h  .cpp      128×64 in an SDL2 window (desktop)
 │   └── input/                   input backend: push Keys into lilty::ui::emit
-│       └── rotary.h  .cpp       rotary encoder plus two buttons (Arduino)
+│       ├── rotary.h  .cpp       rotary encoder plus two buttons (Arduino)
+│       └── sdl_input.h  .cpp    keyboard, drives the SDL2 window (desktop)
 ├── examples/                    each subfolder is a standalone PlatformIO project
 │   ├── esp32s3-sh1106-rotary/   the reference implementation, eight demo pages
-│   └── minimal/                 one screen, one list; start a new port from here
+│   ├── minimal/                 one screen, one list; start a new port from here
+│   └── pc-sdl/                  the same widgets in an SDL2 window, no board
 ├── test/test_core/              desktop unit tests with an in-memory Screen
-└── .github/workflows/build.yml  builds both examples and runs the tests
+└── .github/workflows/build.yml  builds all three examples and runs the tests
 ```
 
 There is exactly one platform-dependent line in `lilty.cpp`: reading a
@@ -217,8 +220,8 @@ src/display/                       src/input/
 ├── ssd1306_i2c.h  .cpp             ├── buttons.h  .cpp     discrete GPIO keys
 ├── ssd1306_spi.h  .cpp             ├── matrix.h   .cpp     key matrix
 ├── st7565_spi.h   .cpp             ├── joystick.h .cpp     ADC joystick
-├── ili9341_spi.h  .cpp  (colour)   └── touch.h    .cpp     CST816 / FT6236
-└── gfx_sdl.h      .cpp             (desktop debugging)
+├── ili9341_spi.h  .cpp  (colour)   └── touch.h     .cpp    CST816 / FT6236
+└── gfx_sdl.h      .cpp  (here)     └── sdl_input.h .cpp    (here)
 ```
 
 Class names follow the file in UpperCamelCase (`Sh1106I2C`, `Ssd1306Spi`, `Rotary`)
@@ -282,6 +285,28 @@ void loop() { lilty::loop([](float dt) { nav.poll(dt); }); }
 
 The hook passed to `lilty::loop` runs before `ui::frame`, so input sampled this
 frame takes effect in the same frame.
+
+## Desktop preview
+
+`examples/pc-sdl` runs the same widgets in an SDL2 window, which is the fastest
+way to iterate on layout without flashing anything. It carries the same eight
+pages as the ESP32 reference port — Buttons, Toggles, Select, Keypad, Shelf,
+Flex, Long list and Popups — so the two can be compared side by side:
+
+```sh
+pio run -d examples/pc-sdl
+.pio/build/pc_sdl/program      # program.exe on Windows
+```
+
+It needs the SDL2 development files — `pacman -S mingw-w64-x86_64-SDL2` on MSYS2,
+`apt install libsdl2-dev` on Debian/Ubuntu, `brew install sdl2` on macOS. The SDL
+backend sits behind `LILTY_SDL`, so nothing else in the library depends on SDL;
+without that flag the ESP32 examples and the unit tests build on a machine that
+has never seen it.
+
+Arrow keys or WASD move the focus, Enter or Space activates, Esc goes back, and
+Ctrl+Q quits. Keypad and Shelf put their contents on a chain, so Up/Down walk
+them one item at a time while Left/Right still move inside a row.
 
 ## Tests
 

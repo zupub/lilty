@@ -1,3 +1,7 @@
+// 只在 Arduino 下编译，理由同 sh1106_i2c.cpp：让 src/input 里能同时放一个
+// PC 键盘后端。
+#ifdef ARDUINO
+
 #include "input/rotary.h"
 
 namespace lilty
@@ -102,3 +106,5 @@ void Rotary::poll(float dt)
 
 } // namespace input
 } // namespace lilty
+
+#endif // ARDUINO

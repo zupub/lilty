@@ -41,3 +41,18 @@ jobs:
       # An example that no longer compiles is the first sign a rename or an API
       # change broke somebody's port.
       - run: pio run -d examples/${{ matrix.example }}
+
+  pc-sdl:
+    name: example pc-sdl
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install SDL2
+        run: sudo apt-get update && sudo apt-get install -y libsdl2-dev
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install platformio
+      # The SDL backend is the only part of the library that links against
+      # something outside the standard library, so it gets its own job.
+      - run: pio run -d examples/pc-sdl

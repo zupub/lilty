@@ -1,3 +1,7 @@
+// 这个后端只在 Arduino 下存在。native 构建时整个文件退化成空的，于是同一个
+// src/display 目录里可以再放一个 PC 用的后端（见 gfx_sdl.cpp）。
+#ifdef ARDUINO
+
 #include "display/sh1106_i2c.h"
 
 #include <string.h>
@@ -246,3 +250,5 @@ void Sh1106I2C::flush()
 
 } // namespace display
 } // namespace lilty
+
+#endif // ARDUINO
