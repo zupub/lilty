@@ -8,7 +8,7 @@
 ![Display](https://img.shields.io/badge/display-SH1106%20128x64-lightgrey)
 
 ![C++](https://img.shields.io/badge/C%2B%2B-11-00599C)
-![native tests](https://img.shields.io/badge/native%20tests-12%20passing-brightgreen)
+[![CI](https://img.shields.io/github/actions/workflow/status/zupub/lilty/build.yml?branch=main&label=CI&logo=github-actions&logoColor=white)](https://github.com/zupub/lilty/actions/workflows/build.yml)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 </div>
