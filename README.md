@@ -14,6 +14,10 @@
 </div>
 
 <p align="center">
+  <img src="assets/screenshot.png" alt="lilty driving the eight-page demo" width="480">
+</p>
+
+<p align="center">
   <strong><a href="README.zh-CN.md">中文</a> | English</strong>
 </p>
 
@@ -48,6 +52,7 @@ lilty/
 ├── library.json  library.properties      PlatformIO / Arduino IDE metadata
 ├── platformio.ini                        only for `pio test`, see Tests
 ├── README.md  README.zh-CN.md  CHANGELOG.md  LICENSE
+├── assets/                              screenshots used by the READMEs
 ├── src/
 │   ├── lilty.h  lilty.cpp       the begin() / loop() glue (still hardware-free)
 │   ├── core/                    no hardware: swap one Screen and it runs on a PC

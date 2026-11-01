@@ -14,6 +14,10 @@
 </div>
 
 <p align="center">
+  <img src="assets/screenshot.png" alt="lilty 跑的八个页面" width="480">
+</p>
+
+<p align="center">
   <strong>中文 | <a href="README.md">English</a></strong>
 </p>
 
@@ -40,6 +44,7 @@ lilty/
 ├── library.json  library.properties      PlatformIO / Arduino IDE 的元数据
 ├── platformio.ini                        只给 `pio test` 用，见「测试」
 ├── README.md  README.zh-CN.md  CHANGELOG.md  LICENSE
+├── assets/                              README 里用的截图
 ├── src/
 │   ├── lilty.h  lilty.cpp       begin() / loop() 粘合层（零硬件依赖，见下）
 │   ├── core/                    零硬件依赖：换到桌面端只要换一个 Screen
