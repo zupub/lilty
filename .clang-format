@@ -1,0 +1,15 @@
+---
+# 微软 Visual Studio 风格（clang-format 的 Microsoft 预设）——也就是 cpptools
+# 在找不到 .clang-format 时用的那个 fallback，现在把它显式钉在仓库里。
+Language: Cpp
+BasedOnStyle: Microsoft
+
+# 只有两项偏离纯 Microsoft，都是必须的：
+#
+# 1. include 不排序。Microsoft 会按字母重排，lilty.h 就会被排到 Arduino.h
+#    前面，Serial / Wire / micros 全部变成未声明，ESP32 上直接编译不过。
+SortIncludes: Never
+IncludeBlocks: Preserve
+
+# 2. 注释不重排。这里的注释是手写换行的中文，重排会毁掉断句。
+ReflowComments: false

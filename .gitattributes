@@ -1,0 +1,11 @@
+# 仓库内统一 LF：跨平台 clone 后 diff 干净，CI 上的 clang-format 检查也不会
+# 因为 CRLF 反复报差异。编辑器侧由 .editorconfig 提示。
+* text=auto eol=lf
+
+# 明确标成二进制，避免被当成文本做行尾转换。
+*.bin binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.pdf binary

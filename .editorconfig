@@ -1,0 +1,26 @@
+# https://editorconfig.org
+# 管住那些不读 .clang-format 的编辑器（纯文本编辑器、没装 C/C++ 扩展的 IDE）。
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+
+# Markdown 的硬换行靠行尾两个空格，不能裁。
+[*.{md,markdown}]
+trim_trailing_whitespace = false
+
+[*.{yml,yaml,json}]
+indent_size = 2
+
+# PlatformIO 的 ini 一律用 4 空格缩进续行。
+[*.ini]
+indent_size = 4
+
+# 只在 Windows 上跑的脚本保持 CRLF。
+[*.{ps1,bat,cmd}]
+end_of_line = crlf
