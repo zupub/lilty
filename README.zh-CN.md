@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![PlatformIO](https://img.shields.io/badge/PlatformIO-espressif32-blue)
+[![PlatformIO Registry](https://badges.registry.platformio.org/packages/zupub/library/lilty.svg)](https://registry.platformio.org/libraries/zupub/lilty)
 ![Arduino](https://img.shields.io/badge/framework-Arduino-00979D)
 ![MCU](https://img.shields.io/badge/MCU-ESP32--S3%20N16R8-red)
 ![Display](https://img.shields.io/badge/display-SH1106%20128x64-lightgrey)
