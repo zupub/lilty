@@ -17,11 +17,11 @@
   <strong><a href="README.zh-CN.md">中文</a> | English</strong>
 </p>
 
-A small GUI framework for 128×64 monochrome OLEDs. It is a C++ port of
+A small GUI framework for 128×64 monochrome OLEDs. It is a C++ rewrite of
 **[lilt](https://github.com/chhongzh/lilt)** — the Go / TinyGo project by
 [chhongzh](https://github.com/chhongzh), version `lilt-0.2.0`.
 
-`lilty` only means "the C++ version of lilt": the structure, the feel and the API
+`lilty` only means "the C++ rewrite of lilt": the structure, the feel and the API
 all follow the original. Go interfaces became a `Node` base class, channels became
 synchronous callbacks, and the garbage collector became explicit `delete`. The
 goals are unchanged: **built for a d-pad and a knob**, **every animation is
@@ -64,7 +64,7 @@ lilty/
 │   └── input/                   input backend: push Keys into lilty::ui::emit
 │       └── rotary.h  .cpp       rotary encoder plus two buttons (Arduino)
 ├── examples/                    each subfolder is a standalone PlatformIO project
-│   ├── esp32s3-sh1106-rotary/   the reference port, four demo pages
+│   ├── esp32s3-sh1106-rotary/   the reference implementation, four demo pages
 │   └── minimal/                 one screen, one list; start a new port from here
 ├── test/test_core/              desktop unit tests with an in-memory Screen
 └── .github/workflows/build.yml  builds both examples and runs the tests
@@ -217,8 +217,8 @@ abstractions declared in `gfx.h` and `ui.h`; it never includes anything from
 
 ## Examples
 
-`examples/esp32s3-sh1106-rotary` is the reference port — the library was written
-on this exact hardware:
+`examples/esp32s3-sh1106-rotary` is the reference implementation — the library
+was written on this exact hardware:
 
 ```sh
 pio run -d examples/esp32s3-sh1106-rotary           # build
@@ -406,11 +406,11 @@ Also dropped:
   false. `kLoadingDelay` is kept only so a desktop async backend can reuse the same
   widgets.
 - **Multi-touch and gestures.** The whole input surface is six `Key`s.
-- **The misc package.** Colour dithering and friends were not ported; on a 1-bit
+- **The misc package.** Colour dithering and friends were left out; on a 1-bit
   panel `isLit()` plus a threshold is enough.
 
-One thing that had to be fixed rather than ported: `apply(this, opts)` must be
-written as `ui::apply(this, opts)`. Unqualified, ADL finds `std::apply` under
+One thing that had to be fixed rather than translated: `apply(this, opts)` must
+be written as `ui::apply(this, opts)`. Unqualified, ADL finds `std::apply` under
 C++17 (the associated namespace of `initializer_list` is `std`), and because
 `std::apply` takes forwarding references it is the better match — every option
 would be silently dropped. The desktop tests are what exposed this.
@@ -446,16 +446,16 @@ and costs no RAM.
 ## Acknowledgements
 
 Thanks to [chhongzh](https://github.com/chhongzh) for
-**[lilt](https://github.com/chhongzh/lilt)**, the Go / TinyGo original this port
-is built on.
+**[lilt](https://github.com/chhongzh/lilt)**, the Go / TinyGo original this
+rewrite is built on.
 
 The architecture this library reproduces — the `Node` tree, the layer stack shared
 by pages and popups, the FocusFinder-style scoring, the spring-driven feel, and the
-shape of the API — is their design. What lives here is a translation into C++ plus
+shape of the API — is their design. What lives here is a rewrite in C++ plus
 the adjustments listed under *Differences from the Go version*. If your target is
 Go or TinyGo, use the original.
 
 ## License
 
 MIT, see [LICENSE](LICENSE). The behaviour and API design belong to the author of
-the original lilt project; this repository is only its C++ port.
+the original lilt project; this repository is only its C++ rewrite.

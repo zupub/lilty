@@ -8,7 +8,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.1.0] - 2026-11-01
 
-First public release. A C++ port of the Go / TinyGo
+First public release. A C++ rewrite of the Go / TinyGo
 [lilt](https://github.com/chhongzh/lilt) project by
 [chhongzh](https://github.com/chhongzh) (`lilt-0.2.0`).
 
@@ -28,7 +28,7 @@ First public release. A C++ port of the Go / TinyGo
   buffer for dirty-page writes.
 - `input/rotary` — quadrature decoder with detent accumulation, hold and repeat,
   driving `ui::emit`.
-- `examples/esp32s3-sh1106-rotary` — the reference port, four demo pages.
+- `examples/esp32s3-sh1106-rotary` — the reference implementation, four demo pages.
 - `examples/minimal` — the smallest runnable sketch, meant as a starting point
   for a new board.
 - `test/test_core` — desktop unit tests running against an in-memory `Screen`,
@@ -55,7 +55,7 @@ First public release. A C++ port of the Go / TinyGo
 ### Changed
 
 - The library was renamed from `lilt` to `lilty`, and the namespace with it, to
-  keep the C++ port distinguishable from the original Go project.
+  keep the C++ rewrite distinguishable from the original Go project.
 - `src/` is split into `core/`, `display/` and `input/` so a port touches only the
   last two.
 - `lilty::loop` no longer depends on `<Arduino.h>`; it uses `std::chrono` outside

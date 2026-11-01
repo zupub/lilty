@@ -18,9 +18,9 @@
 </p>
 
 128×64 单色屏上的小型 GUI 框架，是 **[lilt](https://github.com/chhongzh/lilt)**（Go / TinyGo
-版，`lilt-0.2.0`，作者 [chhongzh](https://github.com/chhongzh)）的 C++ 移植。
+版，`lilt-0.2.0`，作者 [chhongzh](https://github.com/chhongzh)）的 C++ 重写。
 
-`lilty` 这个名字只表示"lilt 的 C++ 版"：结构、手感、API 都照原版来，把 Go 的接口换成
+`lilty` 这个名字只表示"lilt 的 C++ 重写版"：结构、手感、API 都照原版来，把 Go 的接口换成
 `Node` 基类、把通道换成同步回调、把 GC 换成显式 `delete`。定位不变：**面向方向键与
 旋钮**、**所有动画都由弹簧驱动**、**页面和弹窗共用一个层栈**。
 
@@ -56,8 +56,8 @@ lilty/
 │   └── input/                   输入后端：往 lilty::ui::emit 里喂 Key
 │       └── rotary.h  .cpp       旋转编码器 + 两个按键（Arduino）
 ├── examples/                    每个子目录都是独立的 PlatformIO 工程
-│   ├── esp32s3-sh1106-rotary/   参考移植：ESP32-S3 + SH1106 + 旋钮，四个页面
-│   └── minimal/                 最小骨架：一屏一列表，port 新硬件从它抄
+│   ├── esp32s3-sh1106-rotary/   参考实现：ESP32-S3 + SH1106 + 旋钮，四个页面
+│   └── minimal/                 最小骨架：一屏一列表，移植新硬件从它抄
 ├── test/test_core/              桌面端单测（自带的 mock Screen）
 └── .github/workflows/build.yml  每次 push 编译两个 example + 跑单测
 ```
@@ -192,7 +192,7 @@ src/display/                       src/input/
 
 ## 示例
 
-`examples/esp32s3-sh1106-rotary` 是参考移植，库就是在这套硬件上写出来的：
+`examples/esp32s3-sh1106-rotary` 是参考实现，库就是在这套硬件上写出来的：
 
 ```sh
 pio run -d examples/esp32s3-sh1106-rotary          # 编译
@@ -215,7 +215,7 @@ pio device monitor -b 115200
 串口会先扫一遍总线，再打印 `SH1106 在 0x3C / 0x3D 都没有应答` —— SDA/SCL 接反的
 典型现象就是扫描结果为空。
 
-`examples/minimal` 是一屏一列表的最小骨架，port 到新硬件时先让它跑起来。
+`examples/minimal` 是一屏一列表的最小骨架，移植到新硬件时先让它跑起来。
 
 两个 example 的 `platformio.ini` 都用 `lib_deps = symlink://../..` 指回本仓库，所以改完库
 源码直接 `pio run -d examples/...` 就能验证，不需要先发布。
@@ -343,7 +343,7 @@ Rect cursorShape(Rect r) override;        // 改光标形状
 
 调 `ui::invalidate()` 请求重画，调 `ui::relayout()` 请求重排。
 
-## 从 Go 版移植时的取舍
+## 与 Go 版本的差异
 
 | Go / TinyGo (lilt) | lilty | 原因 |
 | --- | --- | --- |
@@ -401,11 +401,11 @@ Flash: 9.6% (used 319241 bytes from 3342336 bytes)
 **[lilt](https://github.com/chhongzh/lilt)**——本项目的 Go / TinyGo 原版。
 
 这个库复现的整套设计——节点树、页面与弹窗共用的层栈、FocusFinder 打分的焦点导航、
-全部由弹簧驱动的动感，以及这一套 API 的形状——都是原版的成果。这里做的是翻译成 C++，
-再加上「从 Go 版移植时的取舍」一节里列的那些改动。目标平台如果是 Go / TinyGo，请直接
+全部由弹簧驱动的动感，以及这一套 API 的形状——都是原版的成果。这里做的是用 C++ 重写，
+再加上「与 Go 版本的差异」一节里列的那些改动。目标平台如果是 Go / TinyGo，请直接
 用原版。
 
 ## 许可证
 
 MIT，见 [LICENSE](LICENSE)。原项目 lilt 的行为与 API 设计归其作者，本仓库只是它的 C++
-移植。
+重写。
