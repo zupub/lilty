@@ -75,11 +75,19 @@ lilty/
 
 ## 安装
 
-**PlatformIO**（推荐）—— 发布到 registry 之后：
+**PlatformIO**（推荐）—— 库已在
+[PlatformIO Registry](https://registry.platformio.org/libraries/zupub/lilty) 上：
 
 ```ini
+[env:esp32s3]
+platform = espressif32
+board = esp32-s3-devkitc-1
+framework = arduino
 lib_deps = lilty
 ```
+
+首次 `pio run` 会自动下载。需要可复现的构建就钉住版本：`lib_deps = lilty@^0.1.0`
+接受任意 0.1.x，`lilty@0.1.0` 则完全锁定那一个版本。
 
 本地开发时直接指回源码，改库不用重装：
 
@@ -87,11 +95,11 @@ lib_deps = lilty
 lib_deps = symlink://path/to/lilty
 ```
 
-不想用 `lib_deps`，也可以把 `-I lilty/src` 加进 `build_flags`，再把自己算出来的源码目录
-喂给编译器。
+不想用 `lib_deps`，也可以把 `-I lilty/src` 加进 `build_flags`，让编译器直接看到源码。
 
 **Arduino IDE** —— 从 GitHub 下载 zip，`Sketch > Include Library > Add .ZIP Library`，
-然后 `#include <lilty.h>`。库的 `library.properties` 已经写好，能被库管理器识别。
+然后 `#include <lilty.h>`。`library.properties` 已经写好；等 Arduino 库索引收录后
+库管理器就能直接搜到，在那之前走 zip 这条路。
 
 ## 移植到别的硬件
 

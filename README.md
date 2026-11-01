@@ -85,11 +85,20 @@ Two boundaries, and porting means filling in one file on either side:
 
 ## Install
 
-**PlatformIO** — once it is in the registry:
+**PlatformIO** — the library lives on the
+[PlatformIO Registry](https://registry.platformio.org/libraries/zupub/lilty):
 
 ```ini
+[env:esp32s3]
+platform = espressif32
+board = esp32-s3-devkitc-1
+framework = arduino
 lib_deps = lilty
 ```
+
+`pio run` downloads it on the first build. Pin a version when you want
+reproducible builds: `lib_deps = lilty@^0.1.0` accepts any 0.1.x, while
+`lilty@0.1.0` locks that exact release.
 
 While working on the library itself, point at the source so edits need no
 reinstall:
@@ -103,7 +112,9 @@ If you would rather not use `lib_deps`, add `-I path/to/lilty/src` to
 
 **Arduino IDE** — download the repository as a zip and use
 `Sketch > Include Library > Add .ZIP Library`, then `#include <lilty.h>`.
-`library.properties` is filled in, so the library manager recognises it.
+`library.properties` is filled in, so the Library Manager will pick it up once
+the Arduino Library Registry lists the project; until then the zip is the route
+that works.
 
 ## Porting to another piece of hardware
 
