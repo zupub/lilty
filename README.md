@@ -1,7 +1,7 @@
 # lilty
 
 <p align="center">
-  <img src="assets/screenshot.png" alt="lilty driving the eight-page demo" width="480">
+  <img src="assets/screenshot.gif" alt="animated demo of the eight pages" width="480">
 </p>
 
 <div align="center">

@@ -1,7 +1,7 @@
 # lilty (C++)
 
 <p align="center">
-  <img src="assets/screenshot.png" alt="lilty 跑的八个页面" width="480">
+  <img src="assets/screenshot.gif" alt="八个页面的动画演示" width="480">
 </p>
 
 <div align="center">
